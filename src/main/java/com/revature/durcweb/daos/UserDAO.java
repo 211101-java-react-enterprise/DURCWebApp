@@ -3,6 +3,7 @@ package com.revature.durcweb.daos;
 import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.models.User;
 import com.revature.boilerplateorm.util.ConnectionFactory;
+import com.revature.durcweb.web.dtos.Credentials;
 
 import java.util.List;
 
@@ -28,5 +29,9 @@ public class UserDAO {
 
     public <T> List<T> findAll(Object key, Class<T> type) {
         return gDao.findAll(key, type);
+    }
+
+    public User findByUsernameAndPassword(Credentials cred) {
+        return gDao.find(cred, User.class);
     }
 }
