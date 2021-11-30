@@ -24,7 +24,7 @@ public class UserDAO{
     }
 
     public boolean delete(int key, User user) {
-        return gDao.delete(key, user);
+        return gDao.delete(user, key);
     }
 
     public <T> List<T> getAll(Class<T> type){
