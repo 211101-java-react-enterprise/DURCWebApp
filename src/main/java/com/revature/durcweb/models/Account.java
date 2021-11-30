@@ -62,7 +62,7 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return id == account.id && Float.compare(account.balance, balance) == 0 && owner == account.owner && name.equals(account.name) && type.equals(account.type);
+        return id == account.id && Float.compare(account.balance, balance) == 0 && name.equals(account.name) && type.equals(account.type) && owner == account.owner;
     }
 
     @Override

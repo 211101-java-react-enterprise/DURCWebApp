@@ -4,7 +4,11 @@ import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.exceptions.AuthenticationException;
 import com.revature.durcweb.exceptions.InvalidRequestException;
 import com.revature.durcweb.models.User;
-import com.revature.durcweb.web.dtos.Credentials;
+import com.revature.durcweb.web.dtos.NewUserRequest;
+import com.revature.durcweb.web.dtos.UserResponse;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserService {
 
@@ -25,7 +29,9 @@ public class UserService {
         return user;
     }
 
-    public boolean registerUser(User newUser) {
+    public boolean registerUser(NewUserRequest userIn) {
+
+        User newUser = new User(userIn);
 
         if(!isUserValid(newUser)) {
             throw new InvalidRequestException("Invalid user data provided");
@@ -38,6 +44,10 @@ public class UserService {
         }
 
         return userDAO.save(newUser);
+    }
+
+    public List<UserResponse> getAllUsers(){
+        return userDAO.getAll(User.class).stream().map(UserResponse::new).collect(Collectors.toList());
     }
 
     public boolean isUserValid(User user) {

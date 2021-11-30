@@ -6,6 +6,7 @@ import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.web.servlets.AccountServlet;
 import com.revature.durcweb.web.servlets.AuthServlet;
 import com.revature.durcweb.web.servlets.RegistrationServlet;
+import com.revature.durcweb.web.servlets.RetrieveUsers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,12 +30,13 @@ public class ContextLoaderListener implements ServletContextListener {
         RegistrationServlet registrationServlet = new RegistrationServlet(userService, mapper);
         AuthServlet authServlet = new AuthServlet(userService, mapper);
         AccountServlet accountServlet = new AccountServlet(accountService, mapper);
+        RetrieveUsers retrieveUsers = new RetrieveUsers(userService, mapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
         context.addServlet("RegistrationServlet", registrationServlet).addMapping("/registration");
         context.addServlet("AccountServlet", accountServlet).addMapping("/account");
-
+        context.addServlet("RetrieveUsers", retrieveUsers).addMapping("/users");
     }
 
     @Override

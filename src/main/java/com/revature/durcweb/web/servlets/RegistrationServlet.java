@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.revature.durcweb.exceptions.InvalidRequestException;
-import com.revature.durcweb.models.User;
 import com.revature.durcweb.services.UserService;
+import com.revature.durcweb.web.dtos.NewUserRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +28,7 @@ public class RegistrationServlet extends HttpServlet {
 
         resp.setContentType("application/json");
         try {
-            User newUser = mapper.readValue(req.getInputStream(), User.class);
+            NewUserRequest newUser = mapper.readValue(req.getInputStream(), NewUserRequest.class);
             userService.registerUser(newUser);
             resp.setStatus(201);
         } catch (InvalidRequestException | JsonParseException | UnrecognizedPropertyException e) {

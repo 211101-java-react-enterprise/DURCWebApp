@@ -1,50 +1,32 @@
-package com.revature.durcweb.models;
+package com.revature.durcweb.web.dtos;
 
-import com.revature.boilerplateorm.util.annotations.Column;
-import com.revature.boilerplateorm.util.annotations.Entity;
-import com.revature.boilerplateorm.util.annotations.Id;
-import com.revature.boilerplateorm.util.annotations.Table;
-import com.revature.durcweb.web.dtos.NewUserRequest;
+import com.revature.durcweb.models.User;
 
-import java.util.Objects;
+public class UserResponse {
 
-@Entity
-@Table(name="users")
-public class User {
-    @Id
     private int id;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
     private String email;
     private String username;
     private String password;
 
-    public User() {
-
-    }
-
-    public User(NewUserRequest userIn){
-        this.id = userIn.getId();
-        this.firstName = userIn.getFirstName();
-        this.lastName = userIn.getLastName();
-        this.email = userIn.getEmail();
-        this.username = userIn.getUsername();
-        this.password = userIn.getPassword();
-    }
-
-
-    public User(int id, String firstName, String lastName, String email, String username, String password) {
+    public UserResponse(int id, String firstName, String lastName, String email, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public UserResponse(User userIn){
+        this.id = userIn.getId();
+        this.firstName = userIn.getFirstName();
+        this.lastName = userIn.getLastName();
+        this.email = userIn.getEmail();
+        this.username = userIn.getUsername();
+        this.password = userIn.getPassword();
     }
 
     public int getId() {
@@ -97,7 +79,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "NewUserRequest{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -105,18 +87,5 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && username.equals(user.username) && password.equals(user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password);
     }
 }
