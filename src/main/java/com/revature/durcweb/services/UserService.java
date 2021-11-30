@@ -10,17 +10,50 @@ public class UserService {
 
    UserDAO userDAO = new UserDAO();
 
-    public User authenticateUser(Credentials cred) {
+    public User authenticateUser(String username, String password) {
 
-        if(cred.getUsername() == null || cred.getUsername().equals("") || cred.getPassword() == null || cred.getPassword().equals("")) {
+        if(username == null || username.equals("") || password == null || password.equals("")) {
             throw new InvalidRequestException("Invalid credentials provided");
         }
 
-        User user = userDAO.findByUsernameAndPassword(cred);
+        User user = userDAO.findByUsernameAndPassword(username, password);
 
         if(user == null) {
             throw new AuthenticationException("No user was found with those credentials");
         }
+        System.out.println(user);
         return user;
+    }
+
+    public boolean registerUser(User newUser) {
+
+        if(!isUserValid(newUser)) {
+            throw new InvalidRequestException("Invalid user data provided");
+        }
+        if(isUsernameTaken(newUser.getUsername())) {
+            throw new InvalidRequestException("Username is already taken");
+        }
+        if(isEmailTaken(newUser.getEmail())) {
+            throw new InvalidRequestException("Email is already taken");
+        }
+
+        return userDAO.save(newUser);
+    }
+
+    public boolean isUserValid(User user) {
+        if (user == null) return false;
+        if (user.getFirstName() == null || user.getFirstName().trim().equals("")) return false;
+        if (user.getLastName() == null || user.getLastName().trim().equals("")) return false;
+        if (user.getEmail() == null || user.getEmail().trim().equals("")) return false;
+        if (user.getUsername() == null || user.getUsername().trim().equals("")) return false;
+        return user.getPassword() != null && !user.getPassword().trim().equals("");
+    }
+
+    public boolean isUsernameTaken(String username) {
+        return userDAO.findByUsername(username) != null;
+    }
+
+    public boolean isEmailTaken(String email) {
+        return userDAO.findByEmail(email) != null;
     }
 }

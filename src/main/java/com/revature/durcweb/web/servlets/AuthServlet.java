@@ -29,7 +29,7 @@ public class AuthServlet extends HttpServlet {
 
         try {
             Credentials creds = mapper.readValue(req.getInputStream(), Credentials.class);
-            User user = userService.authenticateUser(creds);
+            User user = userService.authenticateUser(creds.getUsername(), creds.getPassword());
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
 

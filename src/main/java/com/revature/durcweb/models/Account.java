@@ -15,7 +15,7 @@ public class Account {
     private String name;
     private String type;
     private float balance;
-    private String owner;
+    private int owner;
 
     public int getId() {
         return id;
@@ -49,11 +49,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public String getOwner() {
+    public int getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(int owner) {
         this.owner = owner;
     }
 
@@ -62,7 +62,7 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return id == account.id && Float.compare(account.balance, balance) == 0 && name.equals(account.name) && type.equals(account.type) && owner.equals(account.owner);
+        return id == account.id && Float.compare(account.balance, balance) == 0 && owner == account.owner && name.equals(account.name) && type.equals(account.type);
     }
 
     @Override
