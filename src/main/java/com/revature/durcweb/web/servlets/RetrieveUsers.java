@@ -32,9 +32,4 @@ public class RetrieveUsers extends HttpServlet {
         String payload = mapper.writeValueAsString(users);
         resp.getWriter().write(payload);
     }
-
-    //logout, invalidate current session
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().invalidate();
-    }
 }

@@ -66,4 +66,8 @@ public class UserService {
     public boolean isEmailTaken(String email) {
         return userDAO.findByEmail(email) != null;
     }
+
+    public boolean deleteUser(User user){
+        return userDAO.delete(user.getId(), user);
+    }
 }

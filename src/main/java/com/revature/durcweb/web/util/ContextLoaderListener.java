@@ -3,10 +3,7 @@ package com.revature.durcweb.web.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
-import com.revature.durcweb.web.servlets.AccountServlet;
-import com.revature.durcweb.web.servlets.AuthServlet;
-import com.revature.durcweb.web.servlets.RegistrationServlet;
-import com.revature.durcweb.web.servlets.RetrieveUsers;
+import com.revature.durcweb.web.servlets.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,12 +28,14 @@ public class ContextLoaderListener implements ServletContextListener {
         AuthServlet authServlet = new AuthServlet(userService, mapper);
         AccountServlet accountServlet = new AccountServlet(accountService, mapper);
         RetrieveUsers retrieveUsers = new RetrieveUsers(userService, mapper);
+        DeleteUser deleteUser = new DeleteUser(userService, mapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
         context.addServlet("RegistrationServlet", registrationServlet).addMapping("/registration");
         context.addServlet("AccountServlet", accountServlet).addMapping("/account");
         context.addServlet("RetrieveUsers", retrieveUsers).addMapping("/users");
+        context.addServlet("DeleteUser", deleteUser).addMapping("/delete");
     }
 
     @Override
