@@ -15,15 +15,15 @@ public class UserDAO{
         return gDao.save(user);
     }
 
-    public <T> T find(int key, Class<T> type) {
+    public <T> T find(Class<T> type, int key) {
         return gDao.find(type, key);
     }
 
-    public boolean update(int key, User user) {
-        return gDao.update(key, user);
+    public boolean update(User user, int key) {
+        return gDao.update(user, key);
     }
 
-    public boolean delete(int key, User user) {
+    public boolean delete(User user, int key) {
         return gDao.delete(user, key);
     }
 
@@ -31,7 +31,7 @@ public class UserDAO{
         return gDao.getAll(type);
     }
 
-    public <T> List<T> findAll(Object key, Class<T> type) {
+    public <T> List<T> findAll(Class<T> type, Object key) {
         return gDao.findAll(type, key);
     }
 

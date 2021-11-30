@@ -3,6 +3,8 @@ package com.revature.durcweb.web.servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.web.dtos.UserResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class RetrieveUsers extends HttpServlet {
+
+    Logger logger = LogManager.getLogger();
     private final UserService userService;
     private final ObjectMapper mapper;
 
@@ -25,6 +29,7 @@ public class RetrieveUsers extends HttpServlet {
         resp.setContentType("application/json");
         List<UserResponse> users = userService.getAllUsers();
         if (users.isEmpty()) {
+            logger.info("There are no users in this database");
             resp.setStatus(404); // no users found
             return;
         }

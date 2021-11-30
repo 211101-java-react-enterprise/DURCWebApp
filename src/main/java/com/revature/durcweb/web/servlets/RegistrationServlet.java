@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.revature.durcweb.exceptions.InvalidRequestException;
 import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.web.dtos.NewUserRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import java.io.IOException;
 
 public class RegistrationServlet extends HttpServlet {
 
+    Logger logger = LogManager.getLogger();
     private final UserService userService;
     private final ObjectMapper mapper;
 
@@ -30,12 +33,13 @@ public class RegistrationServlet extends HttpServlet {
         try {
             NewUserRequest newUser = mapper.readValue(req.getInputStream(), NewUserRequest.class);
             userService.registerUser(newUser);
+            logger.info("Registered new user: {}", newUser.getUsername());
             resp.setStatus(201);
         } catch (InvalidRequestException | JsonParseException | UnrecognizedPropertyException e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
             resp.setStatus(400);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getStackTrace());
             resp.setStatus(500);
         }
     }

@@ -6,6 +6,8 @@ import com.revature.durcweb.exceptions.InvalidRequestException;
 import com.revature.durcweb.models.User;
 import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.web.dtos.Credentials;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ import java.io.IOException;
 
 public class AuthServlet extends HttpServlet {
 
+    Logger logger = LogManager.getLogger();
     private final UserService userService;
     private final ObjectMapper mapper;
 
@@ -32,14 +35,16 @@ public class AuthServlet extends HttpServlet {
             User user = userService.authenticateUser(creds.getUsername(), creds.getPassword());
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-
+            logger.info("User {} successfully logged in", user.getUsername());
             resp.setStatus(204);
         } catch (InvalidRequestException e) {
+            logger.warn(e.getMessage());
             resp.setStatus(400);
         } catch(AuthenticationException e) {
+            logger.warn(e.getMessage());
             resp.setStatus(401);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getStackTrace());
             resp.setStatus(500);
         }
     }

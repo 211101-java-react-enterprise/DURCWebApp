@@ -6,16 +6,15 @@ import com.revature.durcweb.models.User;
 public class UserRequest {
 
     private int id;
-    @JsonIgnore
     private String firstName;
-    @JsonIgnore
     private String lastName;
-    @JsonIgnore
     private String email;
-    @JsonIgnore
     private String username;
-    @JsonIgnore
     private String password;
+
+    public UserRequest() {
+
+    }
 
     public UserRequest(int id, String firstName, String lastName, String email, String username, String password) {
         this.id = id;

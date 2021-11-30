@@ -5,6 +5,7 @@ import com.revature.durcweb.exceptions.AuthenticationException;
 import com.revature.durcweb.exceptions.InvalidRequestException;
 import com.revature.durcweb.models.User;
 import com.revature.durcweb.web.dtos.NewUserRequest;
+import com.revature.durcweb.web.dtos.UserRequest;
 import com.revature.durcweb.web.dtos.UserResponse;
 
 import java.util.List;
@@ -46,6 +47,22 @@ public class UserService {
         return userDAO.save(newUser);
     }
 
+    public User updateUser(User user, UserRequest userIn) {
+
+        if(userIn.getId() != 0) user.setId(userIn.getId());
+        if(userIn.getFirstName() != null) user.setFirstName(userIn.getFirstName());
+        if(userIn.getLastName() != null) user.setLastName(userIn.getLastName());
+        if(userIn.getEmail() != null) user.setEmail(userIn.getEmail());
+        if(userIn.getUsername() != null) user.setUsername(userIn.getUsername());
+        if(userIn.getPassword() != null) user.setPassword(userIn.getPassword());
+
+        if(userDAO.update(user, user.getId())) {
+            System.out.println(user);
+            return user;
+        }
+        return null;
+    }
+
     public List<UserResponse> getAllUsers(){
         return userDAO.getAll(User.class).stream().map(UserResponse::new).collect(Collectors.toList());
     }
@@ -68,6 +85,6 @@ public class UserService {
     }
 
     public boolean deleteUser(User user){
-        return userDAO.delete(user.getId(), user);
+        return userDAO.delete(user, user.getId());
     }
 }
