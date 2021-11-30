@@ -39,7 +39,7 @@ public class RegistrationServlet extends HttpServlet {
             logger.warn(e.getMessage());
             resp.setStatus(400);
         } catch (Exception e) {
-            logger.error(e.getStackTrace());
+            logger.fatal(e.getStackTrace());
             resp.setStatus(500);
         }
     }

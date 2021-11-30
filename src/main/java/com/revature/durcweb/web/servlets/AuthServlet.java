@@ -51,6 +51,7 @@ public class AuthServlet extends HttpServlet {
 
     //logout, invalidate current session
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Closing session");
         req.getSession().invalidate();
     }
 }

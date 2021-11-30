@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 
 public class UserService {
 
-   UserDAO userDAO = new UserDAO();
+   UserDAO userDAO;
+
+   public UserService(UserDAO userDAO) {
+       this.userDAO = userDAO;
+   }
 
     public User authenticateUser(String username, String password) {
 
@@ -49,12 +53,11 @@ public class UserService {
 
     public User updateUser(User user, UserRequest userIn) {
 
-        if(userIn.getId() != 0) user.setId(userIn.getId());
-        if(userIn.getFirstName() != null) user.setFirstName(userIn.getFirstName());
-        if(userIn.getLastName() != null) user.setLastName(userIn.getLastName());
-        if(userIn.getEmail() != null) user.setEmail(userIn.getEmail());
-        if(userIn.getUsername() != null) user.setUsername(userIn.getUsername());
-        if(userIn.getPassword() != null) user.setPassword(userIn.getPassword());
+        if(userIn.getFirstName() != null && !userIn.getFirstName().trim().equals("")) user.setFirstName(userIn.getFirstName());
+        if(userIn.getLastName() != null && !userIn.getLastName().trim().equals("")) user.setLastName(userIn.getLastName());
+        if(userIn.getEmail() != null && !userIn.getEmail().trim().equals("")) user.setEmail(userIn.getEmail());
+        if(userIn.getUsername() != null && !userIn.getUsername().trim().equals("")) user.setUsername(userIn.getUsername());
+        if(userIn.getPassword() != null && !userIn.getPassword().trim().equals("")) user.setPassword(userIn.getPassword());
 
         if(userDAO.update(user, user.getId())) {
             System.out.println(user);

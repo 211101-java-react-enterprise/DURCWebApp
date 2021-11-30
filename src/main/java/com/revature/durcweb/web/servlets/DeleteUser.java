@@ -37,6 +37,7 @@ public class DeleteUser extends HttpServlet {
                 logger.info("Current session user successfully deleted");
                 resp.setStatus(200);
             }else{
+                logger.fatal("Current session user could not be deleted");
                 resp.setStatus(500);
             }
         }
