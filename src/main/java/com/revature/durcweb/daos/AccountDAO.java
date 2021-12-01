@@ -3,7 +3,7 @@ package com.revature.durcweb.daos;
 import com.revature.boilerplateorm.daos.GenericDAO;
 
 import com.revature.durcweb.models.Account;
-import com.revature.util.ConnectionFactory;
+import com.revature.durcweb.util.ConnectionFactory;
 
 public class AccountDAO {
 

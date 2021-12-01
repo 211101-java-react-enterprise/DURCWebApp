@@ -2,7 +2,7 @@ package com.revature.durcweb.daos;
 
 import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.models.User;
-import com.revature.util.ConnectionFactory;
+import com.revature.durcweb.util.ConnectionFactory;
 import java.sql.Connection;
 import java.util.List;
 
