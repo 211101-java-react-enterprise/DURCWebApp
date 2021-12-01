@@ -1,12 +1,11 @@
 package com.revature.durcweb.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
+import com.revature.durcweb.util.datasource.ConnectionPool;
 import com.revature.durcweb.web.servlets.*;
-import com.revature.util.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +17,7 @@ import java.sql.Connection;
 public class ContextLoaderListener implements ServletContextListener {
 
     Logger logger = LogManager.getLogger();
+    ConnectionPool pool;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -26,7 +26,8 @@ public class ContextLoaderListener implements ServletContextListener {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        UserDAO userDAO = new UserDAO();
+        pool = ConnectionPool.getInstance();
+        UserDAO userDAO = new UserDAO(pool);
         UserService userService = new UserService(userDAO);
 
         AccountService accountService = new AccountService();
@@ -50,5 +51,6 @@ public class ContextLoaderListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.info("Application Shutting Down");
+        pool = null;
     }
 }

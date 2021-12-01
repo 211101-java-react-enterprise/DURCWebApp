@@ -28,7 +28,7 @@ public class UpdateUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         if(session == null) {
             logger.warn("You are not logged in.");
             resp.setStatus(401);

@@ -2,48 +2,75 @@ package com.revature.durcweb.daos;
 
 import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.models.User;
-import com.revature.util.ConnectionFactory;
+import com.revature.durcweb.util.datasource.ConnectionPool;
+
 import java.sql.Connection;
 import java.util.List;
 
 public class UserDAO{
 
-    Connection conn = ConnectionFactory.getInstance().getConnection();
-    GenericDAO gDao = new GenericDAO(conn);
+    ConnectionPool pool;
+    GenericDAO gDao;
+    Connection conn;
 
-    public boolean save(User user) {
-        return gDao.save(user);
+    public UserDAO(ConnectionPool pool) {
+        this.pool = pool;
+        conn = pool.getConnection();
+        gDao = new GenericDAO(conn);
     }
 
-    public <T> T find(Class<T> type, int key) {
-        return gDao.find(type, key);
+    public boolean save(User user) {
+
+        boolean result = gDao.save(user);
+        pool.releaseConnection(conn);
+        return result;
+    }
+
+    public User find(Class<User> type, int key) {
+        User foundUser = gDao.find(type, key);
+        pool.releaseConnection(conn);
+        return foundUser;
     }
 
     public boolean update(User user, int key) {
-        return gDao.update(user, key);
+        boolean result = gDao.update(user,key);
+        pool.releaseConnection(conn);
+        return result;
     }
 
     public boolean delete(User user, int key) {
-        return gDao.delete(user, key);
+        boolean result = gDao.delete(user,key);
+        pool.releaseConnection(conn);
+        return result;
     }
 
-    public <T> List<T> getAll(Class<T> type){
-        return gDao.getAll(type);
+    public List<User> getAll(Class<User> type){
+        List<User> userList = gDao.getAll(type);
+        pool.releaseConnection(conn);
+        return userList;
     }
 
-    public <T> List<T> findAll(Class<T> type, Object key) {
-        return gDao.findAll(type, key);
+    public List<User> findAll(Class<User> type, Object key) {
+        List<User> userList = gDao.findAll(type, key);
+        pool.releaseConnection(conn);
+        return userList;
     }
 
     public User findByUsernameAndPassword(String username, String password) {
-        return gDao.find(User.class, username, password);
+        User foundUser = gDao.find(User.class, username, password);
+        pool.releaseConnection(conn);
+        return foundUser;
     }
 
     public User findByUsername(String username) {
-        return gDao.find(User.class, username);
+        User foundUser = gDao.find(User.class, username);
+        pool.releaseConnection(conn);
+        return foundUser;
     }
 
     public User findByEmail(String email) {
-        return gDao.find(User.class, email);
+        User foundUser = gDao.find(User.class, email);
+        pool.releaseConnection(conn);
+        return foundUser;
     }
 }
