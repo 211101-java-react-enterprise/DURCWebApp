@@ -12,6 +12,9 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jackson.version>2.12.4</jackson.version>
     </properties>
 
 
@@ -46,6 +49,18 @@
             <artifactId>BoilerPlateORM</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -62,10 +77,13 @@
                         <update>true</update>
                     </configuration>
                 </plugin>
+            </plugins>
+        </pluginManagement>
+            <plugins>
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
+                    <version>0.8.6</version>
                     <executions>
                         <execution>
                             <goals>
@@ -78,10 +96,20 @@
                             <goals>
                                 <goal>report</goal>
                             </goals>
+                            <configuration>
+                                <excludes>
+                                    <exclude>com/revature/durcweb/daos/*</exclude>
+                                    <exclude>com/revature/durcweb/models/*</exclude>
+                                    <exclude>com/revature/durcweb/exceptions/*</exclude>
+                                    <exclude>com/revature/durcweb/util/*</exclude>
+                                    <exclude>com/revature/durcweb/web/dtos/*</exclude>
+                                    <exclude>com/revature/durcweb/web/util/*</exclude>
+                                    <exclude>com/revature/durcweb/web/servlets/*</exclude>
+                                </excludes>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
             </plugins>
-        </pluginManagement>
     </build>
 </project>

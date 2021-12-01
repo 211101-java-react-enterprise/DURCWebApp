@@ -1,19 +1,16 @@
 package com.revature.durcweb.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.web.servlets.*;
-import com.revature.util.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.sql.Connection;
 
 public class ContextLoaderListener implements ServletContextListener {
 
