@@ -1,10 +1,11 @@
 package com.revature.durcweb.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
-import com.revature.durcweb.util.datasource.ConnectionPool;
+import com.revature.durcweb.util.LoadProperties;
 import com.revature.durcweb.web.servlets.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,12 +13,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.sql.Connection;
+import java.util.Properties;
 
 public class ContextLoaderListener implements ServletContextListener {
 
     Logger logger = LogManager.getLogger();
-    ConnectionPool pool;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -25,9 +25,11 @@ public class ContextLoaderListener implements ServletContextListener {
         logger.info("Application Initializing");
 
         ObjectMapper mapper = new ObjectMapper();
+        Properties props;
+        props = LoadProperties.loadProp();
 
-        pool = ConnectionPool.getInstance();
-        UserDAO userDAO = new UserDAO(pool);
+        GenericDAO genericDAO = new GenericDAO(props);
+        UserDAO userDAO = new UserDAO(genericDAO);
         UserService userService = new UserService(userDAO);
 
         AccountService accountService = new AccountService();
@@ -51,6 +53,5 @@ public class ContextLoaderListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.info("Application Shutting Down");
-        pool = null;
     }
 }

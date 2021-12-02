@@ -28,14 +28,14 @@ public class DeleteUser extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         if (session == null) {
-            resp.setStatus(403);
+            resp.setStatus(401);
         } else {
             User user = (User) session.getAttribute("user");
             if(userService.deleteUser(user)){
                 session.removeAttribute("user");
                 session.invalidate();
                 logger.info("Current session user successfully deleted");
-                resp.setStatus(200);
+                resp.setStatus(204);
             }else{
                 logger.fatal("Current session user could not be deleted");
                 resp.setStatus(500);
