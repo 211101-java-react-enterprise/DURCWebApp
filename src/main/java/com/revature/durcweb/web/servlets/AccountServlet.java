@@ -34,7 +34,7 @@ public class AccountServlet extends HttpServlet {
             //todo user is not logged in
         } else {
             User user = (User) session.getAttribute("user");
-            List<Account> accounts = accountService.findMyAccounts(user.getId());
+          //  List<Account> accounts = accountService.findMyAccounts(user.getId());
             //todo display accounts
         }
 

@@ -2,36 +2,39 @@ package com.revature.durcweb.daos;
 
 import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.models.User;
-import com.revature.durcweb.util.ConnectionFactory;
-import java.sql.Connection;
+
 import java.util.List;
 
 public class UserDAO{
 
-    Connection conn = ConnectionFactory.getInstance().getConnection();
-    GenericDAO gDao = new GenericDAO(conn);
+    GenericDAO gDao;
+
+    public UserDAO(GenericDAO genericDAO) {
+        gDao = genericDAO;
+    }
 
     public boolean save(User user) {
+
         return gDao.save(user);
     }
 
-    public <T> T find(Class<T> type, int key) {
+    public User find(Class<User> type, int key) {
         return gDao.find(type, key);
     }
 
     public boolean update(User user, int key) {
-        return gDao.update(user, key);
+        return gDao.update(user,key);
     }
 
     public boolean delete(User user, int key) {
-        return gDao.delete(user, key);
+        return gDao.delete(user,key);
     }
 
-    public <T> List<T> getAll(Class<T> type){
+    public List<User> getAll(Class<User> type){
         return gDao.getAll(type);
     }
 
-    public <T> List<T> findAll(Class<T> type, Object key) {
+    public List<User> findAll(Class<User> type, Object key) {
         return gDao.findAll(type, key);
     }
 

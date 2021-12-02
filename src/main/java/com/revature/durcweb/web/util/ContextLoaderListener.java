@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
+import com.revature.durcweb.util.LoadProperties;
 import com.revature.durcweb.web.servlets.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.Properties;
 
 public class ContextLoaderListener implements ServletContextListener {
 
@@ -22,8 +24,11 @@ public class ContextLoaderListener implements ServletContextListener {
         logger.info("Application Initializing");
 
         ObjectMapper mapper = new ObjectMapper();
+        Properties props;
+        props = LoadProperties.loadProp();
 
-        UserDAO userDAO = new UserDAO();
+        GenericDAO genericDAO = new GenericDAO(props);
+        UserDAO userDAO = new UserDAO(genericDAO);
         UserService userService = new UserService(userDAO);
 
         AccountService accountService = new AccountService();

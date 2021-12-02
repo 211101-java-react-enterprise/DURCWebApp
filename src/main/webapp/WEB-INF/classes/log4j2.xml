@@ -4,7 +4,7 @@
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
         </Console>
-        <File name="FileAppender" fileName="src/main/resources/logs/app.log" immediateFlush="true">
+        <File name="FileAppender" fileName="app.log" immediateFlush="true">
             <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
         </File>
     </Appenders>
