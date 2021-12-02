@@ -1,7 +1,6 @@
 package com.revature.durcweb.web.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
