@@ -3,7 +3,6 @@ package com.revature.durcweb.web.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.boilerplateorm.daos.GenericDAO;
 import com.revature.durcweb.daos.UserDAO;
-import com.revature.durcweb.services.AccountService;
 import com.revature.durcweb.services.UserService;
 import com.revature.durcweb.util.LoadProperties;
 import com.revature.durcweb.web.servlets.*;
@@ -32,11 +31,8 @@ public class ContextLoaderListener implements ServletContextListener {
         UserDAO userDAO = new UserDAO(genericDAO);
         UserService userService = new UserService(userDAO);
 
-        AccountService accountService = new AccountService();
-
         RegistrationServlet registrationServlet = new RegistrationServlet(userService, mapper);
         AuthServlet authServlet = new AuthServlet(userService, mapper);
-        AccountServlet accountServlet = new AccountServlet(accountService, mapper);
         RetrieveUsers retrieveUsers = new RetrieveUsers(userService, mapper);
         DeleteUser deleteUser = new DeleteUser(userService, mapper);
         UpdateUser updateUser = new UpdateUser(userService, mapper);
@@ -44,7 +40,6 @@ public class ContextLoaderListener implements ServletContextListener {
         ServletContext context = sce.getServletContext();
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
         context.addServlet("RegistrationServlet", registrationServlet).addMapping("/registration");
-        context.addServlet("AccountServlet", accountServlet).addMapping("/account");
         context.addServlet("RetrieveUsers", retrieveUsers).addMapping("/users");
         context.addServlet("DeleteUser", deleteUser).addMapping("/delete");
         context.addServlet("UpdateUser", updateUser).addMapping("/update");
