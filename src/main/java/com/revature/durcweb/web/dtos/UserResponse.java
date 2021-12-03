@@ -4,37 +4,23 @@ import com.revature.durcweb.models.User;
 
 public class UserResponse {
 
-    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
-    private String password;
 
-    public UserResponse(int id, String firstName, String lastName, String email, String username, String password) {
-        this.id = id;
+    public UserResponse(String firstName, String lastName, String email, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.password = password;
     }
 
     public UserResponse(User userIn){
-        this.id = userIn.getId();
         this.firstName = userIn.getFirstName();
         this.lastName = userIn.getLastName();
         this.email = userIn.getEmail();
         this.username = userIn.getUsername();
-        this.password = userIn.getPassword();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -69,23 +55,13 @@ public class UserResponse {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
         return "NewUserRequest{" +
-                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

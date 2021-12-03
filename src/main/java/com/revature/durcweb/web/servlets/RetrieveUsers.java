@@ -1,7 +1,10 @@
 package com.revature.durcweb.web.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.durcweb.exceptions.NoUserFoundException;
+import com.revature.durcweb.models.User;
 import com.revature.durcweb.services.UserService;
+import com.revature.durcweb.web.dtos.UserRequest;
 import com.revature.durcweb.web.dtos.UserResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,14 +30,18 @@ public class RetrieveUsers extends HttpServlet {
     //Retrieves and displays all Users
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        List<UserResponse> users = userService.getAllUsers();
-        if (users.isEmpty()) {
-            logger.info("There are no users in this database");
-            resp.setStatus(404); // no users found
-            return;
+        String payload;
+        try {
+            UserRequest user = mapper.readValue(req.getInputStream(), UserRequest.class);
+            UserResponse retrievedUser = userService.getUserByName(user.getFirstName(), user.getLastName());
+            payload = mapper.writeValueAsString(retrievedUser);
+            resp.setStatus(200);
+        } catch (NoUserFoundException e) {
+            List<UserResponse> users = userService.getAllUsers();
+            payload = mapper.writeValueAsString(users);
+            resp.setStatus(400);
         }
-        resp.setStatus(200);
-        String payload = mapper.writeValueAsString(users);
+
         resp.getWriter().write(payload);
     }
 }

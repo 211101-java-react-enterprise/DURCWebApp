@@ -3,6 +3,7 @@ package com.revature.durcweb.services;
 import com.revature.durcweb.daos.UserDAO;
 import com.revature.durcweb.exceptions.AuthenticationException;
 import com.revature.durcweb.exceptions.InvalidRequestException;
+import com.revature.durcweb.exceptions.NoUserFoundException;
 import com.revature.durcweb.models.User;
 import com.revature.durcweb.web.dtos.NewUserRequest;
 import com.revature.durcweb.web.dtos.UserRequest;
@@ -89,5 +90,15 @@ public class UserService {
 
     public boolean deleteUser(User user){
         return userDAO.delete(user, user.getId());
+    }
+
+    public UserResponse getUserByName(String firstName, String lastName) {
+
+       User retrievedUser = userDAO.findByFirstNameAndLastName(firstName, lastName);
+       if(retrievedUser == null) {
+           throw new NoUserFoundException();
+       }
+       UserResponse user = new UserResponse(retrievedUser);
+       return user;
     }
 }
