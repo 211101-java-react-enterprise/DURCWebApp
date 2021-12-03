@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class RegistrationServlet extends HttpServlet {
 
@@ -32,7 +33,10 @@ public class RegistrationServlet extends HttpServlet {
         resp.setContentType("application/json");
         try {
             NewUserRequest newUser = mapper.readValue(req.getInputStream(), NewUserRequest.class);
-            userService.registerUser(newUser);
+            if(!userService.registerUser(newUser)) {
+                resp.setStatus(400);
+                return;
+            }
             logger.info("Registered new user: {}", newUser.getUsername());
             resp.setStatus(201);
         } catch (InvalidRequestException | JsonParseException | UnrecognizedPropertyException e) {
