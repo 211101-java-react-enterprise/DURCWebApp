@@ -37,9 +37,10 @@ public class RetrieveUsers extends HttpServlet {
             payload = mapper.writeValueAsString(retrievedUser);
             resp.setStatus(200);
         } catch (NoUserFoundException e) {
+            logger.warn(e.getMessage());
             List<UserResponse> users = userService.getAllUsers();
             if(users.isEmpty()) {
-                logger.info("There are no users in this database");
+                logger.error("There are no users in this database");
                 resp.setStatus(404); // no users found
                 return;
             }
