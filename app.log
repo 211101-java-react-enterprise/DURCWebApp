@@ -1,5 +1,0 @@
-2021-12-02 18:17:50,267 [main] INFO  com.revature.durcweb.web.util.ContextLoaderListener - Application Initializing
-2021-12-02 18:18:05,065 [Thread-3] INFO  com.revature.durcweb.web.util.ContextLoaderListener - Application Shutting Down
-2021-12-02 18:18:10,367 [main] INFO  com.revature.durcweb.web.util.ContextLoaderListener - Application Initializing
-2021-12-02 18:19:39,000 [Thread-3] INFO  com.revature.durcweb.web.util.ContextLoaderListener - Application Shutting Down
-2021-12-02 18:23:26,325 [main] INFO  com.revature.durcweb.web.util.ContextLoaderListener - Application Initializing
