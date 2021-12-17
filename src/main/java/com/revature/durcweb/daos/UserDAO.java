@@ -46,6 +46,10 @@ public class UserDAO{
         return gDao.find(User.class, username);
     }
 
+    public User findByFirstNameAndLastName(String firstName, String lastName) {
+        return gDao.find(User.class, firstName, lastName);
+    }
+
     public User findByEmail(String email) {
         return gDao.find(User.class, email);
     }
