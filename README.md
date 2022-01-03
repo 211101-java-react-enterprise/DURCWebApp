@@ -6,13 +6,13 @@ BoilerPlateORM https://github.com/211101-java-react-enterprise/BoilerPlateORM
 
 # Endpoints
   - /auth
-    - Post
+    - Post - Expecting a JSON of username and password
     - Delete
   - /registration
-    - Post
+    - Post - Expecting a JSON of id, firstName, lastName, email, username, password
   - /users
     - Get
   - /delete
     - Delete
   - /update
-    - Post
+    - Post - Expecting a JSON of any firstName, lastName, email, username, and password
